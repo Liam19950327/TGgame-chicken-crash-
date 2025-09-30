@@ -24,14 +24,58 @@
     background: url(../../../assets/street/end-street.webp) bottom left;
     padding: 120px;
     margin-bottom: -7px;
+    margin-left: -15px;
 }
 
 .main-street {
     display: flex;
+    margin-left: -10px;
 }
 
 .game-panel.dragging {
-    cursor: default;
     user-select: none;
     -webkit-user-select: none;
+}
+
+.chicken {
+    position: absolute;
+}
+
+.chicken-property {
+    position: relative;
+}
+
+.chicken-body {
+    position: absolute;
+    width: 121px;
+    z-index: 50;
+    top: 425px;
+    left: 29px;
+    animation: chicken-bob 0.7s ease-in-out infinite alternate;
+}
+
+.chicken-foot-front {
+    position: absolute;
+    width: 35px;
+    z-index: 100;
+    top: 528px;
+    left: 58px;
+}
+
+.chicken-foot-back {
+    position: absolute;
+    width: 35px;
+    z-index: 10;
+    top: 525px;
+    left: 75px;
+}
+
+@keyframes chicken-bob {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(1.5px);
+    }
 }

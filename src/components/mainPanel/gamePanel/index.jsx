@@ -1,9 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import './index.css'
-import { highLevel, lowLevel, mediumLevel } from "../../../script/level"
 import Loads from './loads'
+import { GlobalContext } from '../../../context'
+import chickenFoot from "../../../assets/chicken/chicken-foot.webp"
+import chickenBody from "../../../assets/chicken/chicken-body.webp"
 
 const GamePanel = () => {
+    const { levelArrays } = useContext(GlobalContext);
     const containerRef = useRef(null)
     const [isDragging, setIsDragging] = useState(false)
     const dragStateRef = useRef({ startX: 0, scrollLeft: 0 })
@@ -65,18 +68,26 @@ const GamePanel = () => {
             <div className="street-start" aria-disabled>
             </div>
             <div className="main-street" aria-disabled>
-                {highLevel.map((eachValue, index) => {
+                {levelArrays.map((eachValue, index, original) => {
                     return (
-                        <div>
+                        <div key={index}>
                             <Loads
-                                key={index}
                                 eachValue={eachValue}
+                                index={index}
+                                original={original}
                             />
                         </div>
                     )
                 })}
             </div>
             <div className="street-end" aria-disabled>
+            </div>
+            <div className="chicken" aria-disabled>
+                <div className="chicken-property">
+                    <img className='chicken-body' src={chickenBody} alt="This is chicken body" aria-disabled />
+                    <img className='chicken-foot-front' src={chickenFoot} alt="This is chicken leg-1" aria-disabled />
+                    <img className='chicken-foot-back' src={chickenFoot} alt="This is chicken leg-2" aria-disabled />
+                </div>
             </div>
         </div>
     )

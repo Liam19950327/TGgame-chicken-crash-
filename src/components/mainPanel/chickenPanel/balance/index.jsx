@@ -7,7 +7,7 @@ const Balance = () => {
 
     return (
         <div className='balance'>
-            <p>{"BALANCE" + " " + "$" + " " + balance}</p>
+            <p>{"BALANCE" + " " + "$" + " " + Number(balance).toFixed(2)}</p>
         </div>
     )
 }

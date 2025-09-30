@@ -67,15 +67,32 @@
     padding: 10px 20px;
     transition: background-color .3s;
     width: 32.5%;
+    outline: none;
 }
 
 .risk-btn.selected,
 .risk-btn:hover {
     background: linear-gradient(90deg, #4f4f4f59, #2d2d2d59 85%) padding-box, linear-gradient(175deg, #40404059, #20202059 95%) border-box;
+    border: none;
+}
+
+.risk-btn:focus,
+.risk-btn:active {
+    outline: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.risk-btn.selected.low {
+    color: #1eb02d;
 }
 
 .risk-btn.selected.medium {
     color: #ff0;
+}
+
+.risk-btn.selected.high {
+    color: #ff3b3b;
 }
 
 .bet-ui {
@@ -129,6 +146,15 @@
     margin-left: 4px;
     padding: 8px 12px;
     pointer-events: auto;
+    outline: none;
+}
+
+.bet-ui button:hover,
+.bet-ui button:focus,
+.bet-ui button:active {
+    outline: none;
+    box-shadow: 0 2px 0 #0003;
+    border-color: transparent;
 }
 
 .bet-button {
@@ -148,6 +174,20 @@
     margin-top: 25px;
     transition: background-color .2s;
     width: 100%;
+    outline: none;
+}
+
+.bet-button:hover,
+.bet-button:focus,
+.bet-button:active {
+    outline: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.cash-out-button {
+    background-image: linear-gradient(180deg, #d8ad16, #ea7522);
+    font-size: 27px;
 }
 
 .BettingSectionFooterWrapper {
