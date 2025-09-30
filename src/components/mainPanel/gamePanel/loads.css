@@ -1,0 +1,19 @@
+.loads {
+    display: flex;
+    position: relative;
+}
+
+.coin {
+    padding: 20px;
+    margin-top: 407px;
+}
+
+.coin img {
+    width: 115px;
+    height: auto;
+}
+
+.line img {
+    width: 6px;
+    color: #c1c1c1;
+}

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './index.css'
+import { GlobalContext } from '../../../../context'
 
 const Balance = () => {
-    let balance = 10000;
+    const { balance } = useContext(GlobalContext);
 
     return (
         <div className='balance'>

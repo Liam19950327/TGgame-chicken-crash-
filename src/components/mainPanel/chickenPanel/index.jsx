@@ -4,7 +4,7 @@ import Balance from './balance'
 import Crash from './crash'
 
 const ChickenPanel = () => {
-
+    
 
     return (
         <div className='chicken-panel'>

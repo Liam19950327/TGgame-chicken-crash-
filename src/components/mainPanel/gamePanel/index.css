@@ -1,8 +1,37 @@
 .game-panel {
-    background: #161616;
+    background: #2d2d2d;
     border: 2px solid #0000;
-    border-radius: 10px;
     position: relative;
     width: 1000px;
     height: 780px;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+
+.game-panel::-webkit-scrollbar {
+    display: none;
+}
+
+.street-start {
+    background: url(../../../assets/street/start-street.webp) bottom right no-repeat;
+    padding: 94px;
+    margin-bottom: -7px;
+}
+
+.street-end {
+    background: url(../../../assets/street/end-street.webp) bottom left;
+    padding: 120px;
+    margin-bottom: -7px;
+}
+
+.main-street {
+    display: flex;
+}
+
+.game-panel.dragging {
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
 }
