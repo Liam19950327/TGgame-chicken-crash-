@@ -5,7 +5,7 @@
     border-right: 1px solid #27343f;
     display: flex;
     flex-direction: column;
-    transition: all 0.1s ease;
+    /* transition: all 0.1s ease; */
 }
 
 .header-logo {

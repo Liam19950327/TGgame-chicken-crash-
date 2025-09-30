@@ -2,9 +2,11 @@ import React from 'react'
 import './index.css'
 
 const Balance = () => {
+    let balance = 10000;
+
     return (
         <div className='balance'>
-            <h1>Balance</h1>
+            <p>{"BALANCE" + " " + "$" + " " + balance}</p>
         </div>
     )
 }

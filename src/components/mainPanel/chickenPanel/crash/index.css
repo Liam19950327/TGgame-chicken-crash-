@@ -1,0 +1,181 @@
+.crash {
+    align-items: center;
+    background: #161616;
+    border: 1px solid #0000;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 700px;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100%;
+}
+
+.crash img {
+    margin: 5px 0 20px;
+    height: 95px;
+}
+
+.crash-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.risk-selector-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.inner-title {
+    color: #fff;
+    margin-left: 10px;
+}
+
+.risk-selector {
+    background: linear-gradient(#212121, #212121) padding-box, linear-gradient(#404040, #404040) border-box;
+    border: 1px solid #0000;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    display: flex;
+    font-family: Arial, sans-serif;
+    justify-content: space-around;
+    margin-top: 5px;
+    padding: 5px;
+    width: 100%;
+}
+
+.risk-btn:not(:last-child) {
+    border-right: 1px solid #333;
+}
+
+.risk-btn {
+    background: linear-gradient(90deg, #30303059, #24242459 85%) padding-box, linear-gradient(175deg, #40404059, #20202059 95%) border-box;
+    border: 1px solid #0000;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0;
+    padding: 10px 20px;
+    transition: background-color .3s;
+    width: 32.5%;
+}
+
+.risk-btn.selected,
+.risk-btn:hover {
+    background: linear-gradient(90deg, #4f4f4f59, #2d2d2d59 85%) padding-box, linear-gradient(175deg, #40404059, #20202059 95%) border-box;
+}
+
+.risk-btn.selected.medium {
+    color: #ff0;
+}
+
+.bet-ui {
+    align-items: center;
+    background: linear-gradient(#212121, #212121) padding-box, linear-gradient(#404040, #404040) border-box;
+    border: 1px solid #0000;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    display: flex;
+    font-size: 16px;
+    justify-content: space-around;
+    margin-top: 5px;
+    padding: 10px;
+    pointer-events: none;
+    transition: border .3s;
+}
+
+.bet-ui span {
+    font-weight: 900;
+    padding: 0 5px;
+}
+
+.bet-ui input {
+    background-color: #28282800;
+    border: 1px solid #29c23800;
+    border-radius: 4px;
+    color: #fff;
+    flex-grow: 1;
+    font-size: 18px;
+    font-weight: 900;
+    height: 100%;
+    line-height: 16px;
+    margin-left: 2px;
+    margin-right: 10px;
+    padding: 0;
+    pointer-events: auto;
+    top: 0;
+    width: 150px;
+}
+
+.bet-ui button {
+    background: linear-gradient(90deg, #30303059, #24242459 85%) padding-box;
+    border: 1px solid #0000;
+    border-radius: 6px;
+    box-shadow: 0 2px 0 #0003;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 900;
+    margin-left: 4px;
+    padding: 8px 12px;
+    pointer-events: auto;
+}
+
+.bet-button {
+    background-image: linear-gradient(180deg, #22bd32, #019a10);
+    font-size: 30px;
+}
+
+.bet-button,
+.bet-button.cash-out-button {
+    border: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    height: 70px;
+    margin-top: 25px;
+    transition: background-color .2s;
+    width: 100%;
+}
+
+.BettingSectionFooterWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    width: 100%;
+}
+
+.BettingSectionFooterWrapperPart1,
+.BettingSectionFooterWrapperPart2 {
+    margin-top: 15px;
+}
+
+.icon.active {
+    color: #1eb02d;
+}
+
+.icon {
+    color: #969696;
+    cursor: pointer;
+    display: inline;
+    font-family: CustomIcons;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.icon.disabled {
+    opacity: .5;
+    pointer-events: none;
+}

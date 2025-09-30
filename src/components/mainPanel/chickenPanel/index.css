@@ -1,0 +1,8 @@
+.chicken-panel {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    max-width: 420px;
+    height: 780px;
+}
