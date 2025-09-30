@@ -1,4 +1,5 @@
 .main-panel {
     width: calc(100vw - 36px);
     height: 100vh;
+    display: flex;
 }

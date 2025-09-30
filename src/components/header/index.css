@@ -5,10 +5,7 @@
     border-right: 1px solid #27343f;
     display: flex;
     flex-direction: column;
-    /* animation-name: headerAnimation;
-    animation-duration: 3s;
-    animation-delay: 2s;
-    animation-fill-mode: both; */
+    transition: all 0.1s ease;
 }
 
 .header-logo {
@@ -54,10 +51,6 @@
         flex-direction: row;
         height: 36px;
         width: 100vw;
-        /* animation-name: headerAnimationBack;
-        animation-duration: 1s;
-        animation-delay: 0.2s;
-        animation-fill-mode: both; */
     }
 
     .hamberger {
@@ -69,20 +62,3 @@
         margin-left: 16px;
     }
 }
-
-/* @keyframes headerAnimation {
-    from {
-        width: 36px;
-        height: 100vh;
-        background-color: #19232c;
-        border-right: 1px solid #27343f;
-        display: flex;
-        flex-direction: column;
-    }
-
-    to {
-        flex-direction: row;
-        height: 36px;
-        width: 100vw;
-    }
-} */
