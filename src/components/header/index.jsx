@@ -1,10 +1,13 @@
 import React from 'react'
 import './index.css'
+import headerSvg from '../../assets/header.svg'
 
 const Header = () => {
     return (
         <div className='header'>
-            <h1>Header</h1>
+            <div className='header-logo'>
+                <img src={headerSvg} alt="Header" />
+            </div>
         </div>
     )
 }

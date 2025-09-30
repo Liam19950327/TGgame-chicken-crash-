@@ -1,0 +1,18 @@
+.header {
+    width: 36px;
+    height: 100vh;
+    background-color: #19232c;
+    border-right: 1px solid #27343f;
+}
+
+.header-logo {
+    overflow: hidden;
+    width: 14px;
+    position: absolute;
+    margin: 8px;
+}
+
+.header-logo img {
+    height: 20px;
+    width: auto;
+}
