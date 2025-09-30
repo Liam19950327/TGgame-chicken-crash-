@@ -3,12 +3,18 @@
     height: 100vh;
     background-color: #19232c;
     border-right: 1px solid #27343f;
+    display: flex;
+    flex-direction: column;
+    /* animation-name: headerAnimation;
+    animation-duration: 3s;
+    animation-delay: 2s;
+    animation-fill-mode: both; */
 }
 
 .header-logo {
     overflow: hidden;
     width: 14px;
-    position: absolute;
+    position: static;
     margin: 8px;
 }
 
@@ -16,3 +22,67 @@
     height: 20px;
     width: auto;
 }
+
+.hamberger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 27px);
+}
+
+.hamberger span {
+    font-size: medium;
+    color: #fff;
+}
+
+.under1060 {
+    display: none;
+}
+
+@media screen and (max-width: 1060px) {
+    .over1060 {
+        display: none;
+    }
+
+    .under1060 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header {
+        flex-direction: row;
+        height: 36px;
+        width: 100vw;
+        /* animation-name: headerAnimationBack;
+        animation-duration: 1s;
+        animation-delay: 0.2s;
+        animation-fill-mode: both; */
+    }
+
+    .hamberger {
+        height: 36px;
+        width: 100%;
+    }
+
+    .header-logo {
+        margin-left: 16px;
+    }
+}
+
+/* @keyframes headerAnimation {
+    from {
+        width: 36px;
+        height: 100vh;
+        background-color: #19232c;
+        border-right: 1px solid #27343f;
+        display: flex;
+        flex-direction: column;
+    }
+
+    to {
+        flex-direction: row;
+        height: 36px;
+        width: 100vw;
+    }
+} */
