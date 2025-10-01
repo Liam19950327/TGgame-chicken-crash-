@@ -11,7 +11,7 @@ const Crash = () => {
     }
 
     const roundToTwo = (num) => {
-        return Math.round((Number(num) + Number.EPSILON) * 100) / 100;
+        return Math.floor((Number(num) + Number.EPSILON) * 100) / 100;
     }
 
     const clampAndFormat = (value) => {
@@ -38,22 +38,23 @@ const Crash = () => {
                 <div>
                     <div className="bet-amount-wrapper">
                         <span className='inner-title'>BET AMOUNT</span>
-                        <div className="bet-ui">
+                        <div className="bet-ui" style={currentIndex !== -1 ? { opacity: 0.5 } : undefined}>
                             <span>$</span>
                             <input
                                 type="text"
                                 className='custom-keyboard-input'
                                 value={betAmount}
                                 onChange={(e) => setBetAmount(clampAndFormat(e.target.value))}
+                                disabled={currentIndex !== -1}
                             />
-                            <button onClick={() => handleBetAmount(1 / 2)}>1/2</button>
-                            <button onClick={() => handleBetAmount(2)}>x2</button>
-                            <button onClick={() => setBetAmount(200)}>Max</button>
+                            <button disabled={currentIndex !== -1} onClick={() => handleBetAmount(1 / 2)}>1/2</button>
+                            <button disabled={currentIndex !== -1} onClick={() => handleBetAmount(2)}>x2</button>
+                            <button disabled={currentIndex !== -1} onClick={() => setBetAmount(200)}>Max</button>
                         </div>
                     </div>
                     <div className="risk-selector-container">
                         <span className='inner-title'>RISK</span>
-                        <div className="risk-selector">
+                        <div className="risk-selector" style={currentIndex !== -1 ? { opacity: 0.5 } : undefined}>
                             <button
                                 className={`risk-btn low ${risk === 0 ? 'selected' : ''}`}
                                 onClick={() => setRisk(0)}
@@ -79,7 +80,13 @@ const Crash = () => {
                     {
                         currentIndex === -1
                             ?
-                            <button className='bet-button' onClick={() => handlePlayButton()}>PLAY</button>
+                            <button className='bet-button'
+                                onClick={() => {
+                                    handlePlayButton()
+                                    setBalance(balance - betAmount)
+                                }}>
+                                PLAY
+                            </button>
                             :
                             <>
                                 <button className='bet-button' onClick={() => setCurrentIndex(currentIndex + 1)}>GO</button>

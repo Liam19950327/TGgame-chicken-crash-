@@ -1,11 +1,13 @@
 .loads {
     display: flex;
+    position: relative;
 }
 
 .coin {
     position: relative;
     padding: 22px;
     margin-top: 417px;
+    overflow: hidden;
 }
 
 .coin img {
@@ -21,6 +23,118 @@
 .coin p {
     position: absolute;
     color: white;
-    top: 69px;
-    left: 63px;
+    font-size: 25px;
+    top: 61px;
+    left: 56px;
+}
+
+.coin-img {
+    position: relative;
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.gold-coin {
+    overflow: hidden;
+    border-radius: 50%;
+    animation: coinToss 0.5s ease-in 0.8;
+    transform-style: preserve-3d;
+}
+
+@keyframes coinToss {
+    0% {
+        transform: translateY(0px) rotateY(0deg);
+    }
+
+    25% {
+        transform: translateY(-25px) rotateY(-90deg);
+    }
+
+    50% {
+        transform: translateY(-50px) rotateY(0deg);
+    }
+
+    75% {
+        transform: translateY(-25px) rotateY(0deg);
+    }
+
+    100% {
+        transform: translateY(0) rotateY(0deg);
+    }
+}
+
+.coin .shine {
+    position: absolute;
+    z-index: 100;
+    top: -22px;
+    opacity: 0.35;
+    width: 22px;
+    height: 162px;
+    transform: rotate(-38deg);
+}
+
+.load-blocks {
+    position: absolute;
+    top: 300px;
+    left: 17px;
+}
+
+.load-blocks img {
+    width: 130px;
+    height: auto;
+    transform-origin: left bottom;
+}
+
+/* Bounce-in animation for load-blocks when the latest block appears */
+.load-blocks img.animate {
+    animation: loadBlocksBounce 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1;
+
+}
+
+@keyframes loadBlocksBounce {
+    0% {
+        transform: translateY(-60px) rotate(-20deg);
+        animation-timing-function: ease-in;
+        opacity: 0.7;
+    }
+
+
+    38% {
+        opacity: 1;
+    }
+
+    40% {
+        animation-timing-function: ease-in;
+        transform: translateY(-18px) rotate(-15deg);
+    }
+
+    /* 65% {
+        animation-timing-function: ease-in;
+        transform: translateY(-12px) rotate(-20deg);
+    } */
+
+    65% {
+        animation-timing-function: ease-in;
+        transform: translateY(-6px) rotate(-10deg);
+    }
+
+    93% {
+        animation-timing-function: ease-in;
+        transform: translateY(-4px) rotate(-2deg);
+    }
+
+    30%,
+    55%,
+    75% {
+        animation-timing-function: ease-out;
+        transform: translateY(0px);
+    }
+
+    100% {
+        animation-timing-function: ease-out;
+        opacity: 1;
+        transform: translateY(0px);
+    }
 }

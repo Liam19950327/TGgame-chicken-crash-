@@ -188,6 +188,23 @@
 .cash-out-button {
     background-image: linear-gradient(180deg, #d8ad16, #ea7522);
     font-size: 27px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.cash-out-button>div:first-child {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.cash-out-button>div:last-child {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1;
 }
 
 .BettingSectionFooterWrapper {
@@ -219,3 +236,8 @@
     opacity: .5;
     pointer-events: none;
 }
+
+.opacity {
+    opacity: 0.7;
+}
+

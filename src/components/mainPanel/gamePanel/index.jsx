@@ -1,15 +1,67 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './index.css'
 import Loads from './loads'
 import { GlobalContext } from '../../../context'
 import chickenFoot from "../../../assets/chicken/chicken-foot.webp"
 import chickenBody from "../../../assets/chicken/chicken-body.webp"
+import moveAudio from "../../../assets/music/car-win.mp3"
+import winModal from "../../../assets/chicken/win-modal.webp"
+import winModalParticles from "../../../assets/chicken/win-modal-particles.webp"
 
 const GamePanel = () => {
-    const { levelArrays } = useContext(GlobalContext);
+    const { levelArrays, currentIndex, setCurrentIndex } = useContext(GlobalContext);
     const containerRef = useRef(null)
     const [isDragging, setIsDragging] = useState(false)
     const dragStateRef = useRef({ startX: 0, scrollLeft: 0 })
+    const moveTimeoutRef = useRef(null)
+    const moveAudioRef = useRef(null)
+
+    useEffect(() => {
+        const chickenEl = document.getElementsByClassName("chicken")[0]
+        if (!chickenEl) return
+
+        if (currentIndex === 0) {
+            chickenEl.style.left = "167px"
+        }
+        if (currentIndex !== -1)
+            chickenEl.style.left = (167 + currentIndex * 165) + "px"
+        if (currentIndex === -1) {
+            chickenEl.style.left = "0px"
+        }
+
+        // Add moving class for foot step animation
+        if (currentIndex !== -1)
+            chickenEl.classList.add('moving')
+        if (moveTimeoutRef.current) clearTimeout(moveTimeoutRef.current)
+        moveTimeoutRef.current = setTimeout(() => {
+            chickenEl.classList.remove('moving')
+        }, 320)
+
+        // Play movement sound when chicken moves to a valid index
+        if (currentIndex !== -1 && moveAudioRef.current) {
+            try {
+                moveAudioRef.current.volume = 0.6
+                moveAudioRef.current.currentTime = 0
+                void moveAudioRef.current.play().catch(() => { })
+            } catch (e) {
+            }
+        }
+    }, [currentIndex])
+
+    // Smoothly scroll the game panel AFTER the chicken arrives
+    useEffect(() => {
+        if (currentIndex === -1) containerRef.current.scrollTo({ left: 0, behavior: 'smooth' })
+        const handleArrival = (e) => {
+            const arrivedIndex = e?.detail?.index
+            if (!containerRef.current || typeof arrivedIndex !== 'number' || arrivedIndex < 0) return
+            try {
+                containerRef.current.scrollTo({ left: arrivedIndex * 165, behavior: 'smooth' })
+            } catch (err) {
+            }
+        }
+        window.addEventListener('chicken-arrived', handleArrival)
+        return () => window.removeEventListener('chicken-arrived', handleArrival)
+    }, [currentIndex])
 
     const onMouseDown = (e) => {
         if (!containerRef.current) return
@@ -65,16 +117,21 @@ const GamePanel = () => {
             onTouchMove={onTouchMove}
             onTouchEnd={endDrag}
         >
+            <audio src={moveAudio} ref={moveAudioRef} preload="auto" />
             <div className="street-start" aria-disabled>
             </div>
             <div className="main-street" aria-disabled>
                 {levelArrays.map((eachValue, index, original) => {
+                    const shouldAnimate = index <= currentIndex + 1;
                     return (
                         <div key={index}>
                             <Loads
                                 eachValue={eachValue}
                                 index={index}
                                 original={original}
+                                currentIndex={currentIndex}
+                                setCurrentIndex={setCurrentIndex}
+                                shouldAnimate={shouldAnimate}
                             />
                         </div>
                     )
@@ -88,6 +145,10 @@ const GamePanel = () => {
                     <img className='chicken-foot-front' src={chickenFoot} alt="This is chicken leg-1" aria-disabled />
                     <img className='chicken-foot-back' src={chickenFoot} alt="This is chicken leg-2" aria-disabled />
                 </div>
+            </div>
+            <div className="win-modal" >
+                <img src={winModal} alt="" />
+                <img src={winModalParticles} alt="" />
             </div>
         </div>
     )

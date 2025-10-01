@@ -39,6 +39,7 @@
 
 .chicken {
     position: absolute;
+    transition: left 0.3s ease-in-out;
 }
 
 .chicken-property {
@@ -70,6 +71,43 @@
     left: 75px;
 }
 
+/* Feet walking animation when chicken is moving */
+.chicken.moving .chicken-foot-front {
+    animation: foot-front-walk 0.1s linear infinite;
+}
+
+.chicken.moving .chicken-foot-back {
+    animation: foot-back-walk 0.1s linear infinite;
+}
+
+@keyframes foot-front-walk {
+    0% {
+        transform: rotate(0deg) translateY(0px);
+    }
+
+    50% {
+        transform: rotate(30deg) translateY(0px);
+    }
+
+    100% {
+        transform: rotate(0deg) translateY(0px);
+    }
+}
+
+@keyframes foot-back-walk {
+    0% {
+        transform: rotate(0deg) translateY(0px);
+    }
+
+    50% {
+        transform: rotate(-30deg) translateY(0px);
+    }
+
+    100% {
+        transform: rotate(0deg) translateY(0px);
+    }
+}
+
 @keyframes chicken-bob {
     0% {
         transform: translateY(0);
@@ -78,4 +116,26 @@
     100% {
         transform: translateY(1.5px);
     }
+}
+
+.win-modal {
+    position: absolute;
+    top: 84px;
+    left: 314px;
+    animation: win-modal 1s;
+}
+
+@keyframes win-modal {
+    0%{
+        opacity: 100%;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+.win-modal img {
+    position: absolute;
+    width: 420px;
+    height: auto;
 }
