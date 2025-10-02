@@ -71,9 +71,26 @@
 }
 
 .risk-btn.selected,
-.risk-btn:hover {
+.risk-btn:hover:not(:disabled) {
     background: linear-gradient(90deg, #4f4f4f59, #2d2d2d59 85%) padding-box, linear-gradient(175deg, #40404059, #20202059 95%) border-box;
     border: none;
+}
+
+.risk-btn:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.risk-btn:disabled:hover {
+    background: linear-gradient(90deg, #30303059, #24242459 85%) padding-box, linear-gradient(175deg, #40404059, #20202059 95%) border-box;
+    border: 1px solid #0000;
+}
+
+.risk-btn.selected:disabled,
+.risk-btn.selected:disabled:hover {
+    background: linear-gradient(90deg, #4f4f4f59, #2d2d2d59 85%) padding-box, linear-gradient(175deg, #40404059, #20202059 95%) border-box;
+    border: none;
+    opacity: 0.5;
 }
 
 .risk-btn:focus,
@@ -157,6 +174,10 @@
     border-color: transparent;
 }
 
+.bet-ui button:hover:disabled {
+    cursor: default;
+}
+
 .bet-button {
     background-image: linear-gradient(180deg, #22bd32, #019a10);
     font-size: 30px;
@@ -177,12 +198,20 @@
     outline: none;
 }
 
-.bet-button:hover,
-.bet-button:focus,
-.bet-button:active {
+.bet-button:hover:not(:disabled),
+.bet-button:focus:not(:disabled),
+.bet-button:active:not(:disabled) {
     outline: none;
     border-color: transparent;
     box-shadow: none;
+}
+
+.bet-button:disabled {
+    cursor: not-allowed;
+}
+
+.bet-button:disabled:hover {
+    cursor: not-allowed;
 }
 
 .cash-out-button {
@@ -240,4 +269,3 @@
 .opacity {
     opacity: 0.7;
 }
-

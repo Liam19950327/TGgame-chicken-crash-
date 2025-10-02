@@ -6,7 +6,8 @@ export const GlobalContext = createContext({
     risk: 1,
     betAmount: 2,
     levelArrays: mediumLevel,
-    currentIndex: -1
+    currentIndex: -1,
+    earnMoney: 0
 });
 
 const Provider = ({ children }) => {
@@ -15,12 +16,25 @@ const Provider = ({ children }) => {
     const [betAmount, setBetAmount] = useState(2);
     const [levelArrays, setLevelArrays] = useState(mediumLevel);
     const [currentIndex, setCurrentIndex] = useState(-1);
+    const [modalState, setModalState] = useState(true);
+    const [earnMoney, setEarnMoney] = useState(0);
+    const [isChickenMoving, setIsChickenMoving] = useState(false);
+
+    const roundToTwo = (num) => {
+        return Math.floor((Number(num) + Number.EPSILON) * 100) / 100;
+    }
 
     useEffect(() => {
         if (risk === 0) setLevelArrays(lowLevel);
         if (risk === 1) setLevelArrays(mediumLevel);
         if (risk === 2) setLevelArrays(highLevel);
     }, [risk]);
+
+    useEffect(() => {
+        const currentMultiplier = currentIndex >= 0 ? levelArrays[currentIndex] : 0;
+        const calculatedEarnMoney = roundToTwo(Number(betAmount) * Number(currentMultiplier));
+        setEarnMoney(calculatedEarnMoney);
+    }, [betAmount, currentIndex, levelArrays]);
 
     return (
         <GlobalContext.Provider
@@ -33,7 +47,13 @@ const Provider = ({ children }) => {
                 setBetAmount,
                 levelArrays,
                 currentIndex,
-                setCurrentIndex
+                setCurrentIndex,
+                modalState,
+                setModalState,
+                earnMoney,
+                setEarnMoney,
+                isChickenMoving,
+                setIsChickenMoving
             }}
         >
             {children}

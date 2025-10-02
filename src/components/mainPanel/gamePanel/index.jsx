@@ -9,12 +9,15 @@ import winModal from "../../../assets/chicken/win-modal.webp"
 import winModalParticles from "../../../assets/chicken/win-modal-particles.webp"
 
 const GamePanel = () => {
-    const { levelArrays, currentIndex, setCurrentIndex } = useContext(GlobalContext);
+    const { levelArrays, currentIndex, setCurrentIndex, modalState, setModalState, earnMoney, isChickenMoving, setIsChickenMoving } = useContext(GlobalContext);
     const containerRef = useRef(null)
     const [isDragging, setIsDragging] = useState(false)
     const dragStateRef = useRef({ startX: 0, scrollLeft: 0 })
     const moveTimeoutRef = useRef(null)
     const moveAudioRef = useRef(null)
+    const [showModal, setShowModal] = useState(false)
+    const [particlesAnimating, setParticlesAnimating] = useState(false)
+    const [pendingIndexReset, setPendingIndexReset] = useState(false)
 
     useEffect(() => {
         const chickenEl = document.getElementsByClassName("chicken")[0]
@@ -29,12 +32,17 @@ const GamePanel = () => {
             chickenEl.style.left = "0px"
         }
 
-        // Add moving class for foot step animation
-        if (currentIndex !== -1)
+        // Add moving class for foot step animation and set global moving state
+        if (currentIndex !== -1) {
             chickenEl.classList.add('moving')
+            setIsChickenMoving(true)
+        }
         if (moveTimeoutRef.current) clearTimeout(moveTimeoutRef.current)
         moveTimeoutRef.current = setTimeout(() => {
             chickenEl.classList.remove('moving')
+            setTimeout(() => {
+                setIsChickenMoving(false);
+            }, 500);
         }, 320)
 
         // Play movement sound when chicken moves to a valid index
@@ -48,7 +56,44 @@ const GamePanel = () => {
         }
     }, [currentIndex])
 
-    // Smoothly scroll the game panel AFTER the chicken arrives
+    // Handle win modal animation sequence
+    useEffect(() => {
+        if (!modalState) {
+            // Show modal when modalState becomes false (cash-out clicked)
+            setShowModal(true)
+            setParticlesAnimating(false)
+            setPendingIndexReset(true) // Mark that we need to reset index after animation
+
+            // Start particle animation after a brief delay
+            setTimeout(() => {
+                setParticlesAnimating(true)
+            }, 100)
+
+            // Trigger chicken movement after particles finish (1s)
+            setTimeout(() => {
+                // Dispatch chicken-arrived event to trigger previous coin animation and panel scroll
+                try {
+                    const event = new CustomEvent('chicken-arrived', { detail: { index: currentIndex } });
+                    window.dispatchEvent(event);
+                } catch (e) {
+                }
+
+                // Reset currentIndex after chicken movement is triggered
+                if (pendingIndexReset) {
+                    setCurrentIndex(-1)
+                    setPendingIndexReset(false)
+                }
+            }, 1000) // 100ms delay + 1000ms particle animation
+
+            // Hide modal after particles finish (1s) + fade duration (1s) = 2s total
+            setTimeout(() => {
+                setShowModal(false)
+                setParticlesAnimating(false)
+                setModalState(true) // Reset modal state
+            }, 1000)
+        }
+    }, [modalState, setModalState, currentIndex, pendingIndexReset, setCurrentIndex])
+
     useEffect(() => {
         if (currentIndex === -1) containerRef.current.scrollTo({ left: 0, behavior: 'smooth' })
         const handleArrival = (e) => {
@@ -132,6 +177,7 @@ const GamePanel = () => {
                                 currentIndex={currentIndex}
                                 setCurrentIndex={setCurrentIndex}
                                 shouldAnimate={shouldAnimate}
+                                isChickenMoving={isChickenMoving}
                             />
                         </div>
                     )
@@ -146,10 +192,24 @@ const GamePanel = () => {
                     <img className='chicken-foot-back' src={chickenFoot} alt="This is chicken leg-2" aria-disabled />
                 </div>
             </div>
-            <div className="win-modal" >
-                <img src={winModal} alt="" />
-                <img src={winModalParticles} alt="" />
-            </div>
+            {showModal && (
+                <div
+                    className="win-modal"
+                    style={{
+                        left: currentIndex !== -1 ? `${314 + 165 * (currentIndex)}px` : '314px'
+                    }}
+                >
+                    <img src={winModal} alt="" className="win-modal-bg" />
+                    <div className="win-modal-content">
+                        <div className="win-amount">${earnMoney}</div>
+                    </div>
+                    <img
+                        src={winModalParticles}
+                        alt=""
+                        className={`win-modal-particles ${particlesAnimating ? 'particles-falling' : ''}`}
+                    />
+                </div>
+            )}
         </div>
     )
 }

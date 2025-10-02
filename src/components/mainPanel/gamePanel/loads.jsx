@@ -5,8 +5,9 @@ import dottedLine from "../../../assets/street/dotted-line.webp"
 import shine from "../../../assets/coin/shine.webp"
 import goldCoin from "../../../assets/coin/golden-coin.webp"
 import loadblocks from "../../../assets/chicken/loadblocks.svg"
+import tooltip from "../../../assets/coin/tooltip.webp"
 
-const Loads = ({ eachValue, index, original, currentIndex, shouldAnimate, setCurrentIndex }) => {
+const Loads = ({ eachValue, index, original, currentIndex, shouldAnimate, setCurrentIndex, isChickenMoving }) => {
     const shineRef = useRef(null);
     const [shinePosition, setShinePosition] = useState(-41);
     const [bouncePosition, setBouncePosition] = useState(0);
@@ -123,7 +124,10 @@ const Loads = ({ eachValue, index, original, currentIndex, shouldAnimate, setCur
     }, [index, currentIndex]);
 
     const handleCoinClick = () => {
-        if (index === currentIndex + 1) {
+        if (!isChickenMoving)
+            console.log(isChickenMoving);
+
+        if (index === currentIndex + 1 && !isChickenMoving) {
             setCurrentIndex(currentIndex + 1)
         }
     }
@@ -131,7 +135,7 @@ const Loads = ({ eachValue, index, original, currentIndex, shouldAnimate, setCur
     return (
         <div className="loads" aria-disabled>
             <div className="coin" aria-disabled>
-                <div className={index < currentIndex ? "gold-coin" : "coin-img"} style={{ cursor: index === currentIndex + 1 ? "pointer" : "default" }} onClick={() => handleCoinClick()}>
+                <div className={index < currentIndex ? "gold-coin" : "coin-img"} style={{ cursor: (index === currentIndex + 1 && !isChickenMoving) ? "pointer" : "default" }} onClick={() => handleCoinClick()}>
                     {(() => {
                         if (index === currentIndex) {
                             // While moving to this index, keep showing the normal coin; hide after arrival
@@ -159,14 +163,14 @@ const Loads = ({ eachValue, index, original, currentIndex, shouldAnimate, setCur
                     // Match label visibility with coin visibility timing
                     if (index === currentIndex) {
                         return movementCompleted ? null : (
-                            <p style={{ cursor: index === currentIndex + 1 ? "pointer" : "default" }} onClick={() => handleCoinClick()}>
-                                {eachValue}
+                            <p style={{ cursor: (index === currentIndex + 1 && !isChickenMoving) ? "pointer" : "default" }} onClick={() => handleCoinClick()} className="coin-multiple">
+                                {eachValue + "x"}
                             </p>
                         );
                     }
                     return index < currentIndex ? null : (
-                        <p style={{ cursor: index === currentIndex + 1 ? "pointer" : "default" }} onClick={() => handleCoinClick()}>
-                            {eachValue}
+                        <p style={{ cursor: (index === currentIndex + 1 && !isChickenMoving) ? "pointer" : "default" }} onClick={() => handleCoinClick()}>
+                            {eachValue + "x"}
                         </p>
                     );
                 })()}
@@ -193,6 +197,14 @@ const Loads = ({ eachValue, index, original, currentIndex, shouldAnimate, setCur
                             }
                         }}
                     />
+                )}
+            </div>
+            <div className="tooltip">
+                {index === currentIndex && (
+                    <div className="tooltip-properties">
+                        <img src={tooltip} />
+                        <p>{eachValue}x</p>
+                    </div>
                 )}
             </div>
         </div>

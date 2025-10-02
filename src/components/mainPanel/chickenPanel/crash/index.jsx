@@ -4,7 +4,7 @@ import logo from "../../../../assets/logo.png"
 import { GlobalContext } from '../../../../context'
 
 const Crash = () => {
-    const { risk, setRisk, betAmount, setBetAmount, currentIndex, setCurrentIndex, levelArrays, setBalance, balance } = useContext(GlobalContext);
+    const { risk, setRisk, betAmount, setBetAmount, currentIndex, setCurrentIndex, levelArrays, setBalance, balance, setModalState, earnMoney, isChickenMoving, setIsChickenMoving } = useContext(GlobalContext);
 
     const handlePlayButton = () => {
         setCurrentIndex(0);
@@ -27,12 +27,9 @@ const Crash = () => {
         setBetAmount(clampAndFormat(Number(betAmount) * multiple))
     }
 
-    const currentMultiplier = currentIndex >= 0 ? levelArrays[currentIndex] : 0;
-    const earnMoney = roundToTwo(Number(betAmount) * Number(currentMultiplier));
-
 
     return (
-        <div className='crash'>
+        <div className='crash' style={{ opacity: isChickenMoving ? 0.5 : 1 }}>
             <img src={logo} alt="" />
             <div className='crash-section'>
                 <div>
@@ -54,21 +51,24 @@ const Crash = () => {
                     </div>
                     <div className="risk-selector-container">
                         <span className='inner-title'>RISK</span>
-                        <div className="risk-selector" style={currentIndex !== -1 ? { opacity: 0.5 } : undefined}>
+                        <div className="risk-selector">
                             <button
                                 className={`risk-btn low ${risk === 0 ? 'selected' : ''}`}
+                                disabled={currentIndex !== -1}
                                 onClick={() => setRisk(0)}
                             >
                                 LOW
                             </button>
                             <button
                                 className={`risk-btn medium ${risk === 1 ? 'selected' : ''}`}
+                                disabled={currentIndex !== -1}
                                 onClick={() => setRisk(1)}
                             >
                                 MEDIUM
                             </button>
                             <button
                                 className={`risk-btn high ${risk === 2 ? 'selected' : ''}`}
+                                disabled={currentIndex !== -1}
                                 onClick={() => setRisk(2)}
                             >
                                 HIGH
@@ -89,12 +89,27 @@ const Crash = () => {
                             </button>
                             :
                             <>
-                                <button className='bet-button' onClick={() => setCurrentIndex(currentIndex + 1)}>GO</button>
-                                <button className='bet-button  cash-out-button'
+                                <button
+                                    className='bet-button'
                                     onClick={() => {
-                                        setBalance(roundToTwo(Number(balance) + Number(earnMoney)));
-                                        setCurrentIndex(-1);
+                                        setCurrentIndex(currentIndex + 1);
                                     }}
+                                    disabled={isChickenMoving}
+                                >
+                                    GO
+                                </button>
+                                <button
+                                    className='bet-button cash-out-button'
+                                    onClick={() => {
+                                        setModalState(false); // Trigger modal animation
+                                        setBalance(roundToTwo(Number(balance) + Number(earnMoney)));
+                                        setIsChickenMoving(true);
+                                        setTimeout(() => {
+                                            setIsChickenMoving(false);
+                                        }, 1500);
+                                        // Don't reset currentIndex immediately - let the modal animation handle it
+                                    }}
+                                    disabled={isChickenMoving}
                                 >
                                     <div>CASH OUT</div>
                                     <div>$ {earnMoney.toFixed(2)}</div>

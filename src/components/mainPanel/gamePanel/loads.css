@@ -23,9 +23,16 @@
 .coin p {
     position: absolute;
     color: white;
+    font-weight: 1000 !important;
+    -webkit-text-stroke: 2.5px #12273b;
     font-size: 25px;
-    top: 61px;
-    left: 56px;
+    top: 60px;
+    text-shadow: 0px 0px 5px black;
+    left: 50%;
+    transform: translate(-50%);
+    letter-spacing: -2px;
+    /* White text */
+    font-family: Arial, sans-serif;
 }
 
 .coin-img {
@@ -123,6 +130,82 @@
     93% {
         animation-timing-function: ease-in;
         transform: translateY(-4px) rotate(-2deg);
+    }
+
+    30%,
+    55%,
+    75% {
+        animation-timing-function: ease-out;
+        transform: translateY(0px);
+    }
+
+    100% {
+        animation-timing-function: ease-out;
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.tooltip {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 573px;
+}
+
+.tooltip img {
+    width: 75px;
+}
+
+.tooltip-properties {
+    position: relative;
+    animation: tooltip-animation 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1;
+}
+
+.tooltip p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 1000 !important;
+    -webkit-text-stroke: 2.5px #12273b;
+    font-size: 23px;
+    text-shadow: 0px 0px 5px black;
+    letter-spacing: -2px;
+    font-family: Arial, sans-serif;
+}
+
+@keyframes tooltip-animation {
+    0% {
+        transform: translateY(-20px) rotate(-18deg);
+        animation-timing-function: ease-in;
+        opacity: 0.7;
+    }
+
+
+    38% {
+        opacity: 1;
+    }
+
+    40% {
+        animation-timing-function: ease-in;
+        transform: translateY(-8px) rotate(-10deg);
+    }
+
+    /* 65% {
+        animation-timing-function: ease-in;
+        transform: translateY(-12px) rotate(-20deg);
+    } */
+
+    65% {
+        animation-timing-function: ease-in;
+        transform: translateY(-6px) rotate(-7deg);
+    }
+
+    93% {
+        animation-timing-function: ease-in;
+        transform: translateY(-0px) rotate(-0.05deg);
     }
 
     30%,
